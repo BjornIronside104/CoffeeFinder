@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Results - Coffeeshop Finder</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 2em auto; }
+        .shop {
+            border: 1px solid #ccc;
+            padding: 1em;
+            margin-bottom: 1em;
+            border-radius: 6px;
+        }
+        .shop h2 {
+            margin: 0 0 0.5em 0;
+        }
+        .tags {
+            margin: 0.5em 0;
+        }
+        .tag {
+            background-color: #4caf50;
+            color: white;
+            padding: 0.2em 0.6em;
+            border-radius: 3px;
+            margin-right: 0.4em;
+            font-size: 0.85em;
+            display: inline-block;
+        }
+        a.back-link {
+            display: inline-block;
+            margin-top: 2em;
+            text-decoration: none;
+            color: #4caf50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Matching Coffeeshops</h1>
+
+    {% if shops %}
+        {% for shop in shops %}
+            <div class="shop">
+                <h2>{{ shop.name }}</h2>
+                <p><strong>Address:</strong> {{ shop.address }}</p>
+                <p><strong>Hours:</strong> {{ shop.hours }}</p>
+                <p><strong>Rating:</strong> {{ shop.rating }}/5</p>
+                <p>{{ shop.description }}</p>
+
+                <div class="tags">
+                    <strong>Vibes:</strong>
+                    {% for v in shop.vibe %}
+                        <span class="tag">{{ v }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="tags">
+                    <strong>Music:</strong>
+                    {% for m in shop.music %}
+                        <span class="tag">{{ m }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="tags">
+                    <strong>Strains:</strong>
+                    {% for s in shop.strains %}
+                        <span class="tag">{{ s }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No coffeeshops matched your criteria. Try adjusting your filters.</p>
+    {% endif %}
+
+    <a href="/" class="back-link">← Back to search</a>
+</body>
+</html>

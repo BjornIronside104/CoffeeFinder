@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>{{ shop.name }}</title></head>
+<body>
+  <h1>{{ shop.name }}</h1>
+  <p><strong>Address:</strong> {{ shop.address }}</p>
+  <p><strong>Vibe:</strong> {{ shop.vibe }}</p>
+  <p><strong>Music:</strong> {{ shop.music }}</p>
+  <p><strong>Strains:</strong> {{ shop.strains | join(', ') }}</p>
+  <p><a href="/results">⬅ Back to results</a></p>
+</body>
+</html>

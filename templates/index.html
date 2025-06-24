@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amsterdam Coffeeshop Finder</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #27ae60;
+    }
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    label {
+      flex-basis: 100%;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 5px;
+      margin-left: 5px;
+    }
+    .input-group {
+      flex: 1 1 250px;
+      display: flex;
+      flex-direction: column;
+    }
+    input[type="text"] {
+      padding: 10px 12px;
+      border-radius: 5px;
+      border: 1px solid #bbb;
+      font-size: 1em;
+      outline-offset: 2px;
+      outline-color: #27ae60;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus {
+      border-color: #27ae60;
+    }
+    input[type="submit"] {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 12px 30px;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 1.1em;
+      align-self: flex-end;
+      transition: background-color 0.3s ease;
+      margin-left: 10px;
+      flex-shrink: 0;
+      height: 44px;
+    }
+    input[type="submit"]:hover {
+      background-color: #219150;
+    }
+    .shop-list {
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+    .shop {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+    .shop:last-child {
+      border-bottom: none;
+    }
+    .shop-name {
+      font-size: 1.3em;
+      font-weight: 600;
+      color: #27ae60;
+    }
+    .shop-address {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .shop-description {
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Amsterdam Coffeeshop Finder</h1>
+
+    <form action="{{ url_for('results') }}" method="post">
+      <div class="input-group">
+        <label for="vibe">Vibe:</label>
+        <input list="vibe-options" id="vibe" name="vibe" placeholder="Start typing or select a vibe..." autocomplete="off" />
+        <datalist id="vibe-options">
+          <option value="chill"></option>
+          <option value="lit"></option>
+          <option value="artsy"></option>
+          <option value="classy"></option>
+          <option value="cozy"></option>
+          <option value="social"></option>
+          <option value="trippy"></option>
+          <option value="quiet"></option>
+          <option value="luxe"></option>
+          <option value="rustic"></option>
+          <option value="party"></option>
+          <option value="hidden"></option>
+          <option value="eco"></option>
+          <option value="plant-daddy"></option>
+          <option value="bougie"></option>
+          <option value="insta-worthy"></option>
+          <option value="colorful"></option>
+          <option value="good-vibes"></option>
+          <option value="book-nook"></option>
+          <option value="creative"></option>
+          <option value="friendly"></option>
+          <option value="chatty"></option>
+          <!-- add more vibe tags if you want -->
+        </datalist>
+      </div>
+
+      <div class="input-group">
+        <label for="music">Music:</label>
+        <input list="music-options" id="music" name="music" placeholder="Start typing or select music..." autocomplete="off" />
+        <datalist id="music-options">
+          <option value="lo-fi beats"></option>
+          <option value="nature sounds"></option>
+          <option value="ambient"></option>
+          <option value="jazz"></option>
+          <option value="lounge"></option>
+          <option value="smooth"></option>
+          <option value="psytrance"></option>
+          <option value="classic rock"></option>
+          <option value="80s synth"></option>
+          <option value="acoustic"></option>
+          <option value="folk"></option>
+          <option value="soft reggae"></option>
+          <option value="indie"></option>
+          <option value="experimental"></option>
+          <option value="alt"></option>
+          <option value="drum & bass"></option>
+          <option value="EDM"></option>
+          <option value="techno"></option>
+          <option value="underground hip-hop"></option>
+          <option value="trap"></option>
+          <option value="punk"></option>
+          <option value="jazz fusion"></option>
+          <option value="bossa nova"></option>
+          <option value="downtempo"></option>
+          <option value="chillhop"></option>
+          <option value="dutch pop"></option>
+          <option value="top 40"></option>
+          <option value="eurodance"></option>
+          <option value="synthwave"></option>
+          <option value="minimal"></option>
+          <option value="electronic"></option>
+          <option value="classical"></option>
+          <option value="baroque"></option>
+          <option value="dance hits"></option>
+          <option value="remixes"></option>
+          <option value="party"></option>
+          <option value="soft jazz"></option>
+          <option value="vintage soul"></option>
+          <option value="lofi"></option>
+          <option value="soft rock"></option>
+          <!-- add more music genres if needed -->
+        </datalist>
+      </div>
+
+      <div class="input-group">
+        <label for="strain">Strain:</label>
+        <input list="strain-options" id="strain" name="strain" placeholder="Start typing or select a strain..." autocomplete="off" />
+        <datalist id="strain-options">
+          <option value="Amnesia Haze"></option>
+          <option value="Super Lemon Haze"></option>
+          <option value="White Widow"></option>
+          <option value="Silver Haze"></option>
+          <option value="OG Kush"></option>
+          <option value="Blue Cheese"></option>
+          <option value="Jack Herer"></option>
+          <option value="Super Polm"></option>
+          <option value="Nepalese"></option>
+          <option value="Northern Lights"></option>
+          <option value="Hindu Kush"></option>
+          <option value="AK-47"></option>
+          <option value="Sour Diesel"></option>
+          <option value="G13 Haze"></option>
+          <option value="Cheese"></option>
+          <option value="Blueberry"></option>
+          <option value="Bubble Gum"></option>
+          <option value="Amnesia Core Cut"></option>
+          <option value="Grey Haze"></option>
+          <option value="Sol Sweet"></option>
+          <option value="Kosher Kush"></option>
+          <option value="Tangerine Dream"></option>
+          <option value="Cookies Kush"></option>
+          <option value="Morning Glory"></option>
+          <option value="Crystal Clear"></option>
+          <option value="Lavender"></option>
+          <option value="Hawaiian Snow"></option>
+          <option value="Mango Haze"></option>
+          <option value="Power Plant"></option>
+          <option value="White Choco"></option>
+          <option value="Ice-o-Lator"></option>
+          <option value="Ghost OG"></option>
+          <option value="Super Silver Haze"></option>
+          <option value="Early Girl"></option>
+          <option value="Afghaan"></option>
+          <option value="White Widow"></option>
+          <option value="Jack Herer"></option>
+          <option value="Sensi Star"></option>
+          <option value="Laughing Buddha"></option>
+          <option value="Black Widow"></option>
+          <option value="Shiva"></option>
+          <option value="Siberian Haze"></option>
+          <option value="Orange Bud"></option>
+          <option value="White Russian"></option>
+          <!-- add more strains if you want -->
+        </datalist>
+      </div>
+
+      <input type="submit" value="Find Coffeeshops" />
+    </form>
+
+    <!-- Optional: Show all shops on the index page -->
+    <div class="shop-list">
+      {% for shop in shops %}
+        <div class="shop">
+          <div class="shop-name">{{ shop.name }}</div>
+          <div class="shop-address">{{ shop.address }}</div>
+          <div class="shop-description">{{ shop.description }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>
